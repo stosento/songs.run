@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import WebPlayback from './WebPlayback'
-import Login from './Login'
-
+import Login from './components/Login'
 import './App.css';
 
 function App() {
@@ -9,6 +8,7 @@ function App() {
   const [token, setToken] = useState('');
 
   useEffect(() => {
+
     async function getToken() {
       const response = await fetch('/auth/token');
       const json = await response.json();
@@ -16,14 +16,15 @@ function App() {
     }
 
     getToken();
+
   }, []);
 
   return (
     <>
-      <div>help</div>
-      { (token === '') ? <Login/> : <WebPlayback token={token} /> }
+        { (token === '') ? <Login/> : <WebPlayback token={token} /> }
     </>
   );
 }
+
 
 export default App;
