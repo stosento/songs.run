@@ -1,7 +1,20 @@
 import './App.css';
-import React, { useState, useEffect } from "react"
-import getTokenFromUrl from "./Utility"
+import React, { useState, useEffect } from "react";
+
 import SpotifyWebApi from "spotify-web-api-js";
+
+import {Container, InputGroup, FormControl, Button, Row, Card, Form, FormGroup} from 'react-bootstrap'
+
+import getTokenFromUrl from "./Utility";
+
+import Login from './components/Login';
+import NowPlaying from './components/NowPlaying';
+import SearchBar from './components/SearchBar';
+import OptionsBar from './components/OptionsBar';
+import RecommendationForm from './components/RecommendationForm';
+
+import 'bootstrap/dist/css/bootstrap.css';
+import RecommendationResults from './components/RecommendationResults';
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -12,36 +25,43 @@ TODO:
  - Search by BPM
   - Console.log
  - Transition display to be Bootstrap based
- - Show list of playlists
- - Show search bar / results
 */
 
 function App() {
   const [spotifyToken, setSpotifyToken] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
   const [nowPlaying, setNowPlaying] = useState({});
   const [playlists, setPlaylists] = useState({})
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [bpm, setBpm] = useState("");
+  const [track, setTrack] = useState("");
+  const [availableGenres, setAvailableGenres] = useState([]);
+  const [selectedGenres, setSelectedGenres] = useState([]);
+  const [recommendations, setRecommendations] = useState([]);
 
   useEffect(() => {
+    // Set-up Token
     const spotifyToken = getTokenFromUrl().access_token;
-    window.location.hash = "";
-
     if (spotifyToken) {
-      setSpotifyToken(spotifyToken)
+      setSpotifyToken(spotifyToken);
       spotifyApi.setAccessToken(spotifyToken)
+      spotifyApi.getRecommendations(spotifyApi.Recommen)
       setLoggedIn(true)
-      getNowPlaying()
     }
-  })
 
-  const getNowPlaying = () => {
-    spotifyApi.getMyCurrentPlaybackState().then((response) => {
-      setNowPlaying({
-        name: response.item.name,
-        albumArt: response.item.album.images[0].url
+    // Set-up Genre Data
+    const getAvailableGenres = async () => {
+      let resultGenres = [];
+      spotifyApi.getAvailableGenreSeeds().then((result) => {
+        result.genres.forEach(item => {
+          let capital = item.charAt(0).toUpperCase() + item.slice(1)
+          resultGenres.push({value: item, label: capital})
+        });
+        setAvailableGenres(resultGenres);
       })
-    })
-  }
+    }
+   getAvailableGenres();
+
+  }, [])
 
   const getPlaylists = () => {
     spotifyApi.getUserPlaylists().then((result) => {
@@ -55,35 +75,45 @@ function App() {
     spotifyApi.getRecommendations(query).then((result) => {
       console.log(result)
     })
-    // Search for a given track
-    // For each result
-      // Search audio analysis
-      // -- spotifyApi.getAudioAnalysisForTrack
-      // -- get tempo
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("submitted form");
+    console.log(bpm)
+    console.log(track)
   }
   
   return (
     <div className="App">
-      {!loggedIn && 
-        <a href="http://localhost:8888/login">
-          Login to Spotify
-        </a>
-      }
+      {!loggedIn && <Login/>}
       {loggedIn && (
         <>
-          <div>
-            Now Playing - {nowPlaying.name}
-          </div>
-          <div>
-            <img src={nowPlaying.albumArt} style={{height: 150}}/>
-          </div>
-          <button onClick={() => getNowPlaying()}> Check Now Playing </button>
-          <br/>
-          <button onClick={() => getPlaylists()}> Get playlists </button>
-          <br/>
-          <button onClick={() => searchByBPM()}> Search </button>
-          <br/>
+          <NowPlaying 
+            trackInfo={nowPlaying} 
+            onClick={setNowPlaying}
+            api={spotifyApi}
+          />
+          <Container>
+            <br/>
+            <button onClick={() => getPlaylists()}> Get playlists </button>
+            <br/>
+            <button onClick={() => searchByBPM()}> Search </button>
+          </Container>
 
+          
+          <RecommendationForm
+            availableGenres={availableGenres}
+            api={spotifyApi}
+            setRecommendations={setRecommendations}
+          />
+
+          {recommendations.length ? (
+            <>
+              {console.log("have recommendations")}
+              <RecommendationResults recommendations={recommendations}/>
+            </>
+          ) : <></>}
         </>
       )}
     </div>
