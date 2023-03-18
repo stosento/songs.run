@@ -43,8 +43,7 @@ function App() {
     const spotifyToken = getTokenFromUrl().access_token;
     if (spotifyToken) {
       setSpotifyToken(spotifyToken);
-      spotifyApi.setAccessToken(spotifyToken)
-      spotifyApi.getRecommendations(spotifyApi.Recommen)
+      spotifyApi.setAccessToken(spotifyToken);
       setLoggedIn(true)
     }
 
@@ -63,20 +62,6 @@ function App() {
 
   }, [])
 
-  const getPlaylists = () => {
-    spotifyApi.getUserPlaylists().then((result) => {
-      setPlaylists({items: result.items})
-    })
-    console.log(playlists);
-  }
-
-  const searchByBPM = () => {
-    const query = {seed_genres: "classical,country"}
-    spotifyApi.getRecommendations(query).then((result) => {
-      console.log(result)
-    })
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("submitted form");
@@ -94,14 +79,7 @@ function App() {
             onClick={setNowPlaying}
             api={spotifyApi}
           />
-          <Container>
-            <br/>
-            <button onClick={() => getPlaylists()}> Get playlists </button>
-            <br/>
-            <button onClick={() => searchByBPM()}> Search </button>
-          </Container>
 
-          
           <RecommendationForm
             availableGenres={availableGenres}
             api={spotifyApi}

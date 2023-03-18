@@ -7,7 +7,7 @@ const RecommendationResults = (props) => {
     const rows = props.recommendations.map((rec, index) => {
         return <TrackInfo key={index} track={rec} />;
     })
-    
+
     return (
         <Container>
             {console.log("rows", rows)}
