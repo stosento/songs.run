@@ -10,7 +10,6 @@ const RecommendationResults = (props) => {
 
     return (
         <Container>
-            {console.log("rows", rows)}
             {rows}
         </Container>
     );

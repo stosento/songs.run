@@ -38,7 +38,6 @@ const RecommendationForm = (props) => {
                 value : item.id,
                 label : item.name  
             }));
-            console.log(res);
             return res;
         });
     }
@@ -49,7 +48,6 @@ const RecommendationForm = (props) => {
                 value : item.id,
                 label : item.name + " - " + item.artists[0].name
             }));
-            console.log(res);
             return res;
         });
     }
@@ -97,63 +95,61 @@ const RecommendationForm = (props) => {
     };
 
     return(
-        <Alert variant='primary'>
-            <Container>
-                <Form onSubmit={submitHandler}>
-                    <Row className="mb-3">
-                        <Col>
-                            <Form.Group controlId="form.bpm">
-                                <Form.Label>BPM</Form.Label>
-                                <Form.Control
-                                    type="number"
-                                    value={bpm}
-                                    onChange={bpmChangeHandler}
-                                    placeholder="Enter BPM"
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                            <Form.Group controlId="form.genres">
-                                <Form.Label>Genres</Form.Label>
-                                <SearchBar 
-                                    options={props.availableGenres}
-                                    selected={genres}
-                                    onChange={genreChangeHandler}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                            <Form.Group controlId="form.track">
-                                <Form.Label>Track Search</Form.Label>
-                                <AsyncSelect
-                                    cacheOptions
-                                    placeholder="Search for Track"
-                                    value={selectedTrack}
-                                    loadOptions={loadTracks}
-                                    onInputChange={handleTrackInputChange}
-                                    onChange={handleTrackChange}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                            <Form.Group controlId="form.artist">
-                                <Form.Label>Artist Search</Form.Label>
-                                <AsyncSelect
-                                    cacheOptions
-                                    value={selectedArtist}
-                                    placeholder="Search for Artist"
-                                    loadOptions={loadArtists}
-                                    onInputChange={handleArtistInputChange}
-                                    onChange={handleArtistChange}
-                                />
-                            </Form.Group>
-                        </Col>
-                    </Row>
-                    <Button type='submit'>Find Recommendations</Button>
-                </Form>
-            </Container>
-        </Alert>
-
+        <Container>
+            <Form onSubmit={submitHandler}>
+                <Row className="mb-3">
+                    <Col xs={1}>
+                        <Form.Group controlId="form.bpm">
+                            <Form.Label>BPM</Form.Label>
+                            <Form.Control
+                                type="number"
+                                value={bpm}
+                                onChange={bpmChangeHandler}
+                                placeholder="Enter BPM"
+                            />
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group controlId="form.genres">
+                            <Form.Label>Genres</Form.Label>
+                            <SearchBar 
+                                options={props.availableGenres}
+                                selected={genres}
+                                placeholder="Select Genres"
+                                onChange={genreChangeHandler}
+                            />
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group controlId="form.artist">
+                            <Form.Label>Artist Search</Form.Label>
+                            <AsyncSelect
+                                cacheOptions
+                                value={selectedArtist}
+                                placeholder="Search for Artist"
+                                loadOptions={loadArtists}
+                                onInputChange={handleArtistInputChange}
+                                onChange={handleArtistChange}
+                            />
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group controlId="form.track">
+                            <Form.Label>Track Search</Form.Label>
+                            <AsyncSelect
+                                cacheOptions
+                                placeholder="Search for Track"
+                                value={selectedTrack}
+                                loadOptions={loadTracks}
+                                onInputChange={handleTrackInputChange}
+                                onChange={handleTrackChange}
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Button type='submit'>Find Recommendations</Button>
+            </Form>
+        </Container>
     );
 }
 export default RecommendationForm;

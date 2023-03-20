@@ -18,27 +18,15 @@ import RecommendationResults from './components/RecommendationResults';
 
 const spotifyApi = new SpotifyWebApi();
 
-/*
-TODO:
- + Get list of playlists
-  + Console.log
- - Search by BPM
-  - Console.log
- - Transition display to be Bootstrap based
-*/
-
 function App() {
   const [spotifyToken, setSpotifyToken] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [nowPlaying, setNowPlaying] = useState({});
-  const [playlists, setPlaylists] = useState({})
-  const [bpm, setBpm] = useState("");
-  const [track, setTrack] = useState("");
   const [availableGenres, setAvailableGenres] = useState([]);
-  const [selectedGenres, setSelectedGenres] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
 
   useEffect(() => {
+
     // Set-up Token
     const spotifyToken = getTokenFromUrl().access_token;
     if (spotifyToken) {
@@ -61,24 +49,14 @@ function App() {
    getAvailableGenres();
 
   }, [])
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("submitted form");
-    console.log(bpm)
-    console.log(track)
-  }
   
   return (
     <div className="App">
       {!loggedIn && <Login/>}
       {loggedIn && (
         <>
-          <NowPlaying 
-            trackInfo={nowPlaying} 
-            onClick={setNowPlaying}
-            api={spotifyApi}
-          />
+          <h3>songs.run</h3>
+          <br/>
 
           <RecommendationForm
             availableGenres={availableGenres}
@@ -86,9 +64,10 @@ function App() {
             setRecommendations={setRecommendations}
           />
 
+          <br/>
+
           {recommendations.length ? (
             <>
-              {console.log("have recommendations")}
               <RecommendationResults recommendations={recommendations}/>
             </>
           ) : <></>}
