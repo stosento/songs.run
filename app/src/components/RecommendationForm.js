@@ -70,6 +70,7 @@ const RecommendationForm = (props) => {
                 "image": track.album.images[2].url,
                 "artist": track.artists[0].name,
                 "title" : track.name,
+                "url" : track.external_urls.spotify,
                 "preview": track.preview_url,
                 "bpm": analysis.tempo
             };
