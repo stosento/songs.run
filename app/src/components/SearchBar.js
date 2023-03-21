@@ -16,6 +16,7 @@ export default function SearchBar(props) {
             options={props.options}
             onChange={handleChange}
             value={props.selected}
+            isOptionDisabled={() => props.selected.length >= 3}
             isMulti
             isClearable 
         />

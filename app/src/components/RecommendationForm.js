@@ -55,11 +55,6 @@ const RecommendationForm = (props) => {
     const submitHandler = (event) => {
         event.preventDefault();
 
-        setBpm('165');
-        setGenres('');
-        setSelectedTrack('');
-        setSelectedArtist('');
-
         const seedGenres = genres.map(item => item.value).join(',');
 
         const recommendationQuery = {
@@ -71,6 +66,7 @@ const RecommendationForm = (props) => {
 
         function parseTrack(track, analysis) {
             const result = {
+                "id": track.id,
                 "image": track.album.images[2].url,
                 "artist": track.artists[0].name,
                 "title" : track.name,
@@ -122,7 +118,7 @@ const RecommendationForm = (props) => {
                     </Col>
                     <Col>
                         <Form.Group controlId="form.artist">
-                            <Form.Label>Artist Search</Form.Label>
+                            <Form.Label>Artist</Form.Label>
                             <AsyncSelect
                                 cacheOptions
                                 value={selectedArtist}
@@ -135,7 +131,7 @@ const RecommendationForm = (props) => {
                     </Col>
                     <Col>
                         <Form.Group controlId="form.track">
-                            <Form.Label>Track Search</Form.Label>
+                            <Form.Label>Track</Form.Label>
                             <AsyncSelect
                                 cacheOptions
                                 placeholder="Search for Track"

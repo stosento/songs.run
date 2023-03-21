@@ -6,44 +6,73 @@ import DataTable from 'react-data-table-component';
 
 const columns = [
     {
-        name: 'Title',
-        selector: row => row.title,
+        name: 'Thumbnail',
+        selector: row => row.image,
     },
     {
-        name: 'Year',
-        selector: row => row.year,
+        name: 'Artist',
+        selector: row => row.artist,
+        sortable: true
     },
+    {
+        name: 'Song',
+        selector: row => row.song,
+        sortable: true
+    },
+    {
+        name: 'BPM',
+        selector: row => row.bpm,
+        sortable: true
+    },
+    {
+        name: 'Preview',
+        selector: row => row.preview,
+    }
 ];
 
-
-const data = [
-    {
-        id: 1,
-        title: <audio controls src={"props.track.preview"}/>,
-        year: '1988',
-    },
-    {
-        id: 2,
-        title: <audio controls src={"props.track.preview"}/>,
-        year: '1984',
-    },
-]
+function makeRow(item) {
+    const row = {
+        "id": item.id,
+        "image": <img src={item.image} style={{height: 64}}/>,
+        "artist": item.artist,
+        "song": item.title,
+        "bpm": Math.round(item.bpm),
+        "preview": <audio controls src={item.preview}/>
+    };
+    return row;
+}
 
 const RecommendationResults = (props) => {
-    const rows = props.recommendations.map((rec, index) => {
-        return <TrackInfo key={index} track={rec} />;
-    })
+
+    const [songs, setSongs] = useState([]);
+
+    let rows = [];
+    props.recommendations.forEach(rec => {
+        rows.push(makeRow(rec));
+    });
+
+    const handleChange = ({ selectedRows }) => {
+        // You can set state or dispatch with something like Redux so we can use the retrieved data
+        setSongs(selectedRows.map(row => ({
+            id : row.id
+        })))
+    };
+
+    const handleClick = ({}) => {
+        
+    }
 
     return (
-        <>
-        <Container>
-            {rows}
-        </Container>
         <DataTable
             columns={columns}
-            data={data}
+            data={rows}
+            pagination
+            selectableRows
+            onSelectedRowsChange={handleChange}
+            striped           
+            highlightOnHover
+            pointerOnHover
         />
-        </>
     );
 }
 

@@ -69,6 +69,7 @@ function App() {
           {recommendations.length ? (
             <>
               <RecommendationResults recommendations={recommendations}/>
+              <Button className="pull-left">Add to Playlist</Button>
             </>
           ) : <></>}
         </>
