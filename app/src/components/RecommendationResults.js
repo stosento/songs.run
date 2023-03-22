@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Button } from 'react-bootstrap';
-import TrackInfo from './TrackInfo';
 import DataTable from 'react-data-table-component';
-
+import PlaylistActions from './PlaylistActions';
 
 const columns = [
     {
@@ -71,7 +70,7 @@ const RecommendationResults = (props) => {
 
     return (
         <Container>
-            {showButtons && <Button>Add to Playlist</Button>}
+            <PlaylistActions count={songs.length}/>
             <DataTable
                 columns={columns}
                 data={rows}

@@ -61,7 +61,8 @@ const RecommendationForm = (props) => {
             "seed_genres": seedGenres,
             "seed_artists": selectedArtist.value,
             "seed_tracks": selectedTrack.value,
-            "target_tempo": bpm
+            "target_tempo": bpm,
+            "limit": 50
         }
 
         function parseTrack(track, analysis) {

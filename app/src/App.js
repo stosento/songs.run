@@ -1,27 +1,20 @@
-import './App.css';
 import React, { useState, useEffect } from "react";
-
 import SpotifyWebApi from "spotify-web-api-js";
-
-import {Container, InputGroup, FormControl, Button, Row, Card, Form, FormGroup} from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 
 import getTokenFromUrl from "./Utility";
-
 import Login from './components/Login';
-import NowPlaying from './components/NowPlaying';
-import SearchBar from './components/SearchBar';
-import OptionsBar from './components/OptionsBar';
 import RecommendationForm from './components/RecommendationForm';
-
-import 'bootstrap/dist/css/bootstrap.css';
 import RecommendationResults from './components/RecommendationResults';
+
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const spotifyApi = new SpotifyWebApi();
 
 function App() {
   const [spotifyToken, setSpotifyToken] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
-  const [nowPlaying, setNowPlaying] = useState({});
   const [availableGenres, setAvailableGenres] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
 
@@ -69,7 +62,6 @@ function App() {
           {recommendations.length ? (
             <>
               <RecommendationResults recommendations={recommendations}/>
-              <Button className="pull-left">Add to Playlist</Button>
             </>
           ) : <></>}
         </>
