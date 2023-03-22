@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import LoginModal from "./LoginModal";
+import LoginModal from "./modal/LoginModal";
 
 const Login = () => {
 
