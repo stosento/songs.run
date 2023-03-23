@@ -20,15 +20,7 @@ const AddPlaylistModal = (props) => {
             </Modal.Header>
             <Form onSubmit={addToPlaylist}>
                 <Modal.Body>
-                    <Form.Group controlId="playlist.name">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control
-                                type="text"
-                                value={name}
-                                onChange={handleName}
-                                placeholder="Enter Name"
-                            />
-                    </Form.Group>
+
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
@@ -38,7 +30,7 @@ const AddPlaylistModal = (props) => {
                         Add to Playlist
                     </Button>
                 </Modal.Footer>
-                </Form>
+            </Form>
           </Modal>
         </>
     );

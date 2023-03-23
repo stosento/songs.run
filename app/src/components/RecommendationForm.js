@@ -73,7 +73,8 @@ const RecommendationForm = (props) => {
                 "title" : track.name,
                 "url" : track.external_urls.spotify,
                 "preview": track.preview_url,
-                "bpm": analysis.tempo
+                "bpm": analysis.tempo,
+                "uri": track.uri
             };
             return result;
         }

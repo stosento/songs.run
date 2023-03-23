@@ -42,7 +42,8 @@ function makeRow(item) {
         "song": item.title,
         "url": item.url,
         "bpm": Math.round(item.bpm),
-        "preview": <audio controls src={item.preview}/>
+        "preview": <audio controls src={item.preview}/>,
+        "uri": item.uri
     };
     return row;
 }
@@ -59,7 +60,8 @@ const RecommendationResults = (props) => {
 
     const handleChange = ({ selectedRows }) => {
         setSongs(selectedRows.map(row => ({
-            id : row.id
+            id : row.id,
+            uri : row.uri
         })))
         selectedRows.length > 0 ? setShowButtons(true) : setShowButtons(false);
     };
@@ -70,7 +72,10 @@ const RecommendationResults = (props) => {
 
     return (
         <Container>
-            <PlaylistActions count={songs.length}/>
+            <PlaylistActions 
+                songs={songs}
+                api={props.api}
+            />
             <DataTable
                 columns={columns}
                 data={rows}

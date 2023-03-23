@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Button } from 'react-bootstrap';
+import { Container, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import AddPlaylistModal from './modal/AddPlaylistModal';
 import CreatePlaylistModal from './modal/CreatePlaylistModal';
 
@@ -13,20 +13,12 @@ const PlaylistActions = (props) => {
     const handleAddClick = () => setShowAddModal(true);
 
     useEffect(() => {
-        if (props.count > 0) {
+        if (props.songs.length > 0) {
             setDisabled(false);
         } else {
             setDisabled(true);
         }
     })
-
-    function handleCreatePlaylist(songs) {
-        
-    }
-
-    function handleAddToPlaylist(songs) {
-
-    }
 
     return (
         <>  
@@ -39,6 +31,7 @@ const PlaylistActions = (props) => {
             >
                 Create New Playlist
             </Button>
+
             <Button 
                 size="sm" 
                 variant="outline-primary" 
@@ -48,13 +41,18 @@ const PlaylistActions = (props) => {
             >
                 Add to Existing Playlist
             </Button>
+
             <CreatePlaylistModal 
                 show={showCreateModal} 
                 setShow={setShowCreateModal}
+                api={props.api}
+                songs={props.songs}
             />
             <AddPlaylistModal 
                 show={showAddModal} 
                 setShow={setShowAddModal}
+                api={props.api}
+                songs={props.songs}
             />
         </>
     );

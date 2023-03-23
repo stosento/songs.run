@@ -61,7 +61,10 @@ function App() {
 
           {recommendations.length ? (
             <>
-              <RecommendationResults recommendations={recommendations}/>
+              <RecommendationResults 
+                recommendations={recommendations} 
+                api={spotifyApi}
+              />
             </>
           ) : <></>}
         </>
