@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Modal } from "react-bootstrap";
 
-const AddPlaylistModal = (props) => {
+const PlaylistAddModal = (props) => {
 
     const [name, setName] = useState('');
 
@@ -36,4 +36,4 @@ const AddPlaylistModal = (props) => {
     );
 }
 
-export default AddPlaylistModal;
+export default PlaylistAddModal;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal } from "react-bootstrap";
 
-const CreatePlaylistModal = (props) => {
+const PlaylistCreateModal = (props) => {
 
     const [name, setName] = useState('');
 
@@ -12,18 +12,21 @@ const CreatePlaylistModal = (props) => {
       event.preventDefault();
 
       const uris = props.songs.map( s => s.uri);
-      console.log("uris", uris);
+      let playlistResult = "";
 
       props.api.getMe().then(meResult => {
         const userId = meResult.id;
         props.api.createPlaylist(userId, {"name" : name}).then(result => {
-          console.log("result", result);
           const playlistId = result.id;
+          playlistResult = result;
           props.api.addTracksToPlaylist(playlistId, uris).then(result => {
             console.log("added items to playlist");
           }); 
         });
       });
+
+      handleClose();
+      props.callback(playlistResult);
     }
 
     return (
@@ -58,4 +61,4 @@ const CreatePlaylistModal = (props) => {
       );
 }
 
-export default CreatePlaylistModal;
+export default PlaylistCreateModal;

@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import AddPlaylistModal from './modal/AddPlaylistModal';
-import CreatePlaylistModal from './modal/CreatePlaylistModal';
+import { Container, Button, OverlayTrigger, Tooltip, Alert } from 'react-bootstrap';
+import PlaylistCreateAlert from './alert/PlaylistCreateAlert';
+import PlaylistAddModal from './modal/PlaylistAddModal';
+import PlaylistCreateModal from './modal/PlaylistCreateModal';
 
 const PlaylistActions = (props) => {
 
     const [disabled, setDisabled] = useState(true);
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [showAddModal, setShowAddModal] = useState(false);
+
+    const [showCreatedAlert, setShowCreatedAlert] = useState(false);
+    const [createdPlaylist, setCreatedPlaylist] = useState({});
 
     const handleCreateClick = () => setShowCreateModal(true);
     const handleAddClick = () => setShowAddModal(true);
@@ -19,6 +23,11 @@ const PlaylistActions = (props) => {
             setDisabled(true);
         }
     })
+
+    const createdPlaylistCallback = (playlist) => {
+        setShowCreatedAlert(true);
+        setCreatedPlaylist(playlist);
+    }
 
     return (
         <>  
@@ -42,13 +51,18 @@ const PlaylistActions = (props) => {
                 Add to Existing Playlist
             </Button>
 
-            <CreatePlaylistModal 
+            <PlaylistCreateModal 
                 show={showCreateModal} 
                 setShow={setShowCreateModal}
                 api={props.api}
                 songs={props.songs}
+                callback={createdPlaylistCallback}
             />
-            <AddPlaylistModal 
+            {/* <PlaylistCreateAlert
+                playlist={createdPlaylist}
+            /> */}
+
+            <PlaylistAddModal 
                 show={showAddModal} 
                 setShow={setShowAddModal}
                 api={props.api}
