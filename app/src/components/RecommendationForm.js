@@ -52,6 +52,13 @@ const RecommendationForm = (props) => {
         });
     }
 
+    const resetForm = (event) => {
+        setBpm('165');
+        setGenres('');
+        setSelectedArtist('');
+        setSelectedTrack('');
+    }
+
     const submitHandler = (event) => {
         event.preventDefault();
 
@@ -146,6 +153,7 @@ const RecommendationForm = (props) => {
                         </Form.Group>
                     </Col>
                 </Row>
+                <Button className='m-1' variant='secondary' onClick={resetForm}>Reset</Button>
                 <Button type='submit'>Find Recommendations</Button>
             </Form>
         </Container>
