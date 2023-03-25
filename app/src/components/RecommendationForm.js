@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { Form, Button, Container, Alert, Col, Row } from 'react-bootstrap';
 import AsyncSelect from 'react-select/async';
 import SearchBar from './SearchBar';
+import MaterialSlider from './utils/MaterialSlider';
 
 const RecommendationForm = (props) => {
-    const [bpm, setBpm] = useState('165');
+    const [bpm, setBpm] = useState([50, 150]);
     const [genres, setGenres] = useState('');
     const [inputTrack, setInputTrack] = useState('');
     const [selectedTrack, setSelectedTrack] = useState(null);
     const [inputArtist, setInputArtist] = useState('');
     const [selectedArtist, setSelectedArtist] = useState(null);
 
-    const bpmChangeHandler = (event) => {
-        setBpm(event.target.value);
+    const bpmChangeHandler = (event, data) => {
+        setBpm(data);
     };
     const genreChangeHandler = (item) => {
         setGenres(item);
@@ -53,7 +54,7 @@ const RecommendationForm = (props) => {
     }
 
     const resetForm = (event) => {
-        setBpm('165');
+        setBpm([100, 200]);
         setGenres('');
         setSelectedArtist('');
         setSelectedTrack('');
@@ -64,13 +65,19 @@ const RecommendationForm = (props) => {
 
         const seedGenres = genres.map(item => item.value).join(',');
 
+        console.log("selectedArtist", selectedArtist);
+        console.log("selectedTrack", selectedTrack);
+
         const recommendationQuery = {
             "seed_genres": seedGenres,
             "seed_artists": selectedArtist.value,
             "seed_tracks": selectedTrack.value,
-            "target_tempo": bpm,
+            "min_tempo": bpm[0],
+            "max_tempo": bpm[1],
             "limit": 50
         }
+
+        console.log("query", recommendationQuery)
 
         function parseTrack(track, analysis) {
             const result = {
@@ -104,17 +111,19 @@ const RecommendationForm = (props) => {
         <Container>
             <Form onSubmit={submitHandler}>
                 <Row className="mb-3">
-                    <Col xs={1}>
+                    <Col>
                         <Form.Group controlId="form.bpm">
                             <Form.Label>BPM</Form.Label>
-                            <Form.Control
-                                type="number"
+                            <MaterialSlider
+                                min={0}
+                                max={200}
                                 value={bpm}
                                 onChange={bpmChangeHandler}
-                                placeholder="Enter BPM"
                             />
                         </Form.Group>
                     </Col>
+                </Row>
+                <Row className="mb-3">
                     <Col>
                         <Form.Group controlId="form.genres">
                             <Form.Label>Genres</Form.Label>

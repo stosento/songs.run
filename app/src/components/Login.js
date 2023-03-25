@@ -15,7 +15,9 @@ const Login = () => {
             <Button variant="outline-success" href={"http://localhost:8888/login"}>
                 Login to Spotify
             </Button>
-            <Button onClick={handleShow}>
+            <br/>
+            <br/>
+            <Button variant="outline-info" onClick={handleShow}>
                 What is this?
             </Button>
             <LoginModal show={show} setShow={setShow}/>

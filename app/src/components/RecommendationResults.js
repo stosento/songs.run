@@ -80,6 +80,7 @@ const RecommendationResults = (props) => {
                 columns={columns}
                 data={rows}
                 pagination
+                paginationPerPage={25}
                 selectableRows
                 striped           
                 highlightOnHover
