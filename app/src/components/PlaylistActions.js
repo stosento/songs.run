@@ -11,7 +11,9 @@ const PlaylistActions = (props) => {
     const [showAddModal, setShowAddModal] = useState(false);
 
     const [showCreatedAlert, setShowCreatedAlert] = useState(false);
+    const [showAddedAlert, setShowAddedAlert] = useState(false);
     const [createdPlaylist, setCreatedPlaylist] = useState({});
+    const [addedPlaylist, setAddedPlaylist] = useState({});
 
     const handleCreateClick = () => setShowCreateModal(true);
     const handleAddClick = () => setShowAddModal(true);
@@ -27,6 +29,11 @@ const PlaylistActions = (props) => {
     const createdPlaylistCallback = (playlist) => {
         setShowCreatedAlert(true);
         setCreatedPlaylist(playlist);
+    }
+
+    const addedToPlaylistCallback = (playlist) => {
+        setShowCreatedAlert(true);
+        setAddedPlaylist(playlist);
     }
 
     return (
@@ -67,7 +74,8 @@ const PlaylistActions = (props) => {
                 setShow={setShowAddModal}
                 api={props.api}
                 songs={props.songs}
-            />
+                callback={addedToPlaylistCallback}
+            />   
         </>
     );
 };

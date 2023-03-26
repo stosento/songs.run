@@ -4,26 +4,33 @@ import PlaylistCard from '../card/PlaylistCard';
 
 const PlaylistAddModal = (props) => {
 
-    const [playlists, setPlaylists] = useState({});
+    const [playlists, setPlaylists] = useState([]);
 
     const handleClose = () => props.setShow(false);
 
     useEffect(() => {
-      props.api.getMe().then(meResult => {
-        const userId = meResult.id;
-        return props.api.getUserPlaylists(userId, {"limit" : 50}).then(result => {
-          return setPlaylists(result.items.map(item => {
-            return (
-              <PlaylistCard playlist={item}/>
-            )
-          }));
+      if (props.show) {
+        props.api.getMe().then(meResult => {
+          const userId = meResult.id;
+           props.api.getUserPlaylists(userId, {"limit" : 50}).then(result => {
+            const ownedPlaylists = result.items.filter(playlist => playlist.owner.id === userId);
+            console.log(ownedPlaylists);
+            const cards = ownedPlaylists.map(item => {
+              return (<PlaylistCard api={props.api} playlist={item} songs={props.songs} closeModal={handleClose}/>);
+            })
+            setPlaylists(cards);
+          });
         })
-      })
-    });
+      }
+    }, [props.show]);
 
-    const addToPlaylist = (event) => {
-
-    }
+    // const addToPlaylist = (playlistId) => {
+    //   const uris = props.songs.map( s => s.uri);
+    //   props.api.addTracksToPlaylist(playlistId, uris).then(addResult => {
+    //     console.log("added items to playlist");
+    //   })
+    //   handleClose();
+    // }
 
     return (
         <>
@@ -31,20 +38,12 @@ const PlaylistAddModal = (props) => {
             <Modal.Header closeButton>
               <Modal.Title>Add to Playlist</Modal.Title>
             </Modal.Header>
-            <Form onSubmit={addToPlaylist}>
+            <Form>
                 <Modal.Body>
                   <Row xs={2} md={4}>
                     {playlists}
                   </Row>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" type="submit">
-                        Add to Playlist
-                    </Button>
-                </Modal.Footer>
             </Form>
           </Modal>
         </>
