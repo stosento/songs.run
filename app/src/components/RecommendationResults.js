@@ -89,6 +89,7 @@ const RecommendationResults = (props) => {
             <PlaylistActions 
                 songs={songs}
                 api={props.api}
+                setAlert={props.setAlert}
             />
             <DataTable
                 columns={columns}

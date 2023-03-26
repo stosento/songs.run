@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 
-const PlaylistCreateAlert = (props) => {
+const PlaylistAddedAlert = (props) => {
 
     return (
         <Alert variant="success">
             Playlist{' '}
             <Alert.Link href={props.playlist.external_urls.spotify}>{props.playlist.name}</Alert.Link> 
-            {' '}has been created!
+            {' '}has been appended with your songs!
         </Alert>
       );
 }
 
-export default PlaylistCreateAlert;
+export default PlaylistAddedAlert;

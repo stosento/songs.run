@@ -14,23 +14,19 @@ const PlaylistAddModal = (props) => {
           const userId = meResult.id;
            props.api.getUserPlaylists(userId, {"limit" : 50}).then(result => {
             const ownedPlaylists = result.items.filter(playlist => playlist.owner.id === userId);
-            console.log(ownedPlaylists);
             const cards = ownedPlaylists.map(item => {
-              return (<PlaylistCard api={props.api} playlist={item} songs={props.songs} closeModal={handleClose}/>);
+              return (<PlaylistCard 
+                        api={props.api} 
+                        playlist={item} 
+                        songs={props.songs} 
+                        closeModal={handleClose}
+                        callback={props.callback}/>);
             })
             setPlaylists(cards);
           });
         })
       }
     }, [props.show]);
-
-    // const addToPlaylist = (playlistId) => {
-    //   const uris = props.songs.map( s => s.uri);
-    //   props.api.addTracksToPlaylist(playlistId, uris).then(addResult => {
-    //     console.log("added items to playlist");
-    //   })
-    //   handleClose();
-    // }
 
     return (
         <>

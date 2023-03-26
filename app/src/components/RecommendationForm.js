@@ -64,10 +64,6 @@ const RecommendationForm = (props) => {
         event.preventDefault();
 
         const seedGenres = genres.map(item => item.value).join(',');
-
-        console.log("selectedArtist", selectedArtist);
-        console.log("selectedTrack", selectedTrack);
-
         const recommendationQuery = {
             "seed_genres": seedGenres,
             "seed_artists": selectedArtist.value,
@@ -76,8 +72,6 @@ const RecommendationForm = (props) => {
             "max_tempo": bpm[1],
             "limit": 50
         }
-
-        console.log("query", recommendationQuery)
 
         function parseTrack(track, analysis) {
             const result = {

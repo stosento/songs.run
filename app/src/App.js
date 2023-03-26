@@ -9,14 +9,24 @@ import RecommendationResults from './components/RecommendationResults';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import GlobalAlert from "./components/alert/GlobalAlert";
 
 const spotifyApi = new SpotifyWebApi();
 
 function App() {
   const [spotifyToken, setSpotifyToken] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
+  
+  const [showAlert, setShowAlert] = useState(false);
+  const [globalAlert, setGlobalAlert] = useState(<GlobalAlert/>);
+
   const [availableGenres, setAvailableGenres] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
+
+  const populateAlert = (alert) => {
+    setShowAlert(true);
+    setGlobalAlert(alert);
+  };
 
   useEffect(() => {
 
@@ -48,6 +58,8 @@ function App() {
       {!loggedIn && <Login/>}
       {loggedIn && (
         <>
+          {globalAlert}
+
           <h3>songs.run</h3>
           <br/>
 
@@ -64,6 +76,7 @@ function App() {
               <RecommendationResults 
                 recommendations={recommendations} 
                 api={spotifyApi}
+                setAlert={populateAlert}
               />
             </>
           ) : <></>}

@@ -7,7 +7,8 @@
 - [x] Add additional attributes to main table
   - [x] Energy
   - [x] Dancibility
-- [ ] Add alerts to updating playlists
+- [x] Add alerts to updating playlists
+- [ ] Apply better styling
 - [ ] Improve process for entering fields
 - [ ] Add a 'source' song to compare attributes
 - [ ] Expand row functionality with full song attributes

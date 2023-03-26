@@ -8,7 +8,7 @@ const PlaylistCard = (props) => {
     const addToPlaylist = () => {
         const uris = props.songs.map( s => s.uri);
         props.api.addTracksToPlaylist(props.playlist.id, uris).then(addResult => {
-          console.log("added items to playlist");
+          props.callback(props.playlist);
         });
         props.closeModal();
       }

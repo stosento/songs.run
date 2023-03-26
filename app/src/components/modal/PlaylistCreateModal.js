@@ -20,13 +20,12 @@ const PlaylistCreateModal = (props) => {
           const playlistId = result.id;
           playlistResult = result;
           props.api.addTracksToPlaylist(playlistId, uris).then(result => {
-            console.log("added items to playlist");
+            props.callback(playlistResult);
           }); 
         });
       });
 
       handleClose();
-      props.callback(playlistResult);
     }
 
     return (
