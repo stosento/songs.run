@@ -88,6 +88,8 @@ const RecommendationForm = (props) => {
                 "url" : track.external_urls.spotify,
                 "preview": track.preview_url,
                 "bpm": analysis.tempo,
+                "danceability": analysis.danceability,
+                "energy": analysis.energy,
                 "uri": track.uri
             };
             return result;

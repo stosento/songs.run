@@ -19,13 +19,25 @@ const columns = [
         name: 'Song',
         selector: row => row.song,
         sortable: true,
-        grow: 2
+        grow: 1
     },
     {
         name: 'BPM',
         selector: row => row.bpm,
         sortable: true,
-        grow: 1
+        grow: 0
+    },
+    {
+        name: 'Danceability',
+        selector: row => row.danceability,
+        sortable: true,
+        grow: 0
+    },
+    {
+        name: 'Energy',
+        selector: row => row.energy,
+        sortable: true,
+        grow: 0
     },
     {
         name: 'Preview',
@@ -42,7 +54,9 @@ function makeRow(item) {
         "song": item.title,
         "url": item.url,
         "bpm": Math.round(item.bpm),
-        "preview": <audio controls src={item.preview}/>,
+        "danceability": item.danceability,
+        "energy": item.energy,
+        "preview": <audio controls controlsList="nodownload noplaybackrate" src={item.preview}/>,
         "uri": item.uri
     };
     return row;
@@ -80,7 +94,7 @@ const RecommendationResults = (props) => {
                 columns={columns}
                 data={rows}
                 pagination
-                paginationPerPage={25}
+                paginationPerPage={20}
                 selectableRows
                 striped           
                 highlightOnHover
