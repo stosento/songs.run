@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Button, Container, Alert, Col, Row, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import AsyncSelect from 'react-select/async';
 import SearchBar from './SearchBar';
@@ -11,6 +11,12 @@ const RecommendationForm = (props) => {
     const [selectedTrack, setSelectedTrack] = useState(null);
     const [inputArtist, setInputArtist] = useState('');
     const [selectedArtist, setSelectedArtist] = useState(null);
+
+    const [searchDisabled, setSearchDisabled] = useState(true);
+
+    useEffect(() => {
+        updateSearchEnabled(bpm, selectedArtist, selectedTrack, genres);
+    })
 
     const bpmChangeHandler = (event, data) => {
         setBpm(data);
@@ -31,6 +37,11 @@ const RecommendationForm = (props) => {
     };
     const handleTrackChange = value => {
         setSelectedTrack(value);
+    };
+
+    const updateSearchEnabled = (bpm, selectedArtist, selectedTrack, genres) => {
+        let disabled = bpm ? (!selectedArtist && !selectedTrack && !genres) : !selectedTrack;
+        setSearchDisabled(disabled);
     };
 
     const loadArtists = inputArtist => {
@@ -120,12 +131,12 @@ const RecommendationForm = (props) => {
                             </Col>
                             <Col sm={2}>
                                 <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                                <ToggleButton id="tbg-btn-1" value={1}>
-                                    Enabled
-                                </ToggleButton>
-                                <ToggleButton id="tbg-btn-2" value={2} variant="secondary">
-                                    Disabled
-                                </ToggleButton>
+                                    <ToggleButton id="tbg-btn-1" size="sm" value={1} variant="outline-success">
+                                        Enabled
+                                    </ToggleButton>
+                                    <ToggleButton id="tbg-btn-2" size="sm" value={2} variant="outline-danger">
+                                        Disabled
+                                    </ToggleButton>
                                 </ToggleButtonGroup>
                             </Col>
                         </Form.Group>
@@ -181,7 +192,7 @@ const RecommendationForm = (props) => {
                     </Col>
                 </Row>
                 <Button className='m-1' variant='secondary' onClick={resetForm}>Reset</Button>
-                <Button type='submit'>Find Recommendations</Button>
+                <Button type='submit' disabled={searchDisabled}>Find Recommendations</Button>
             </Form>
         </div>
     );
