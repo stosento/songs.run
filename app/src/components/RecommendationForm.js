@@ -65,9 +65,9 @@ const RecommendationForm = (props) => {
 
         const seedGenres = genres.map(item => item.value).join(',');
         const recommendationQuery = {
-            "seed_genres": seedGenres,
-            "seed_artists": selectedArtist.value,
-            "seed_tracks": selectedTrack.value,
+            "seed_genres": seedGenres ? seedGenres : '',
+            "seed_artists": selectedArtist ? selectedArtist.value : '',
+            "seed_tracks": selectedTrack ? selectedTrack.value : '',
             "min_tempo": bpm[0],
             "max_tempo": bpm[1],
             "limit": 50
@@ -104,57 +104,69 @@ const RecommendationForm = (props) => {
     };
 
     return(
-        <Container>
+        <Container className='container-md'>
             <Form onSubmit={submitHandler}>
                 <Row className="mb-3">
                     <Col>
-                        <Form.Group controlId="form.bpm">
-                            <Form.Label>BPM</Form.Label>
-                            <MaterialSlider
-                                min={0}
-                                max={200}
-                                value={bpm}
-                                onChange={bpmChangeHandler}
-                            />
+                        <Form.Group as={Row} controlId="form.bpm">
+                            <Form.Label className="text-end" column sm={3}>Set your target <b>bpm</b> : </Form.Label>
+                            <Col sm={9}>
+                                <MaterialSlider
+                                    min={0}
+                                    max={200}
+                                    value={bpm}
+                                    onChange={bpmChangeHandler}
+                                />
+                            </Col>
                         </Form.Group>
                     </Col>
                 </Row>
                 <Row className="mb-3">
                     <Col>
-                        <Form.Group controlId="form.genres">
-                            <Form.Label>Genres</Form.Label>
-                            <SearchBar 
-                                options={props.availableGenres}
-                                selected={genres}
-                                placeholder="Select Genres"
-                                onChange={genreChangeHandler}
-                            />
+                        <Form.Group as={Row} controlId="form.artist">
+                            <Form.Label className="text-end" column sm={3}>Search for an <b>artist</b> you like :</Form.Label>
+                            <Col sm={9}>
+                                <AsyncSelect
+                                    cacheOptions
+                                    value={selectedArtist}
+                                    placeholder="Search..."
+                                    loadOptions={loadArtists}
+                                    onInputChange={handleArtistInputChange}
+                                    onChange={handleArtistChange}
+                                />
+                            </Col>
                         </Form.Group>
                     </Col>
+                </Row>
+                <Row className="mb-3">
                     <Col>
-                        <Form.Group controlId="form.artist">
-                            <Form.Label>Artist</Form.Label>
-                            <AsyncSelect
-                                cacheOptions
-                                value={selectedArtist}
-                                placeholder="Search for Artist"
-                                loadOptions={loadArtists}
-                                onInputChange={handleArtistInputChange}
-                                onChange={handleArtistChange}
-                            />
+                        <Form.Group as={Row} controlId="form.track">
+                            <Form.Label className="text-end" column sm={3}>Search for a <b>song</b> you like :</Form.Label>
+                            <Col sm={9}>
+                                <AsyncSelect
+                                    cacheOptions
+                                    placeholder="Search..."
+                                    value={selectedTrack}
+                                    loadOptions={loadTracks}
+                                    onInputChange={handleTrackInputChange}
+                                    onChange={handleTrackChange}
+                                /> 
+                            </Col>
                         </Form.Group>
                     </Col>
+                </Row>
+                <Row className="mb-3">
                     <Col>
-                        <Form.Group controlId="form.track">
-                            <Form.Label>Track</Form.Label>
-                            <AsyncSelect
-                                cacheOptions
-                                placeholder="Search for Track"
-                                value={selectedTrack}
-                                loadOptions={loadTracks}
-                                onInputChange={handleTrackInputChange}
-                                onChange={handleTrackChange}
-                            />
+                        <Form.Group as={Row} controlId="form.genres">
+                            <Form.Label className="text-end" column sm={3}>Add a few <b>genres</b> :</Form.Label>
+                            <Col sm={9}>
+                                <SearchBar 
+                                    options={props.availableGenres}
+                                    selected={genres}
+                                    placeholder="Search..."
+                                    onChange={genreChangeHandler}
+                                />
+                            </Col>
                         </Form.Group>
                     </Col>
                 </Row>
