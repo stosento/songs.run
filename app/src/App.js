@@ -59,7 +59,7 @@ function App() {
       {loggedIn && (
         <>
           {globalAlert}
-          <h3 className="mb-5">songs.run</h3>
+          <h3 className="mb-5">my<b>tempo</b>.run</h3>
           <RecommendationForm className="mb-4"
             availableGenres={availableGenres}
             api={spotifyApi}

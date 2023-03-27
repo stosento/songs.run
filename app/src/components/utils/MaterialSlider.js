@@ -41,6 +41,7 @@ const MaterialSlider = ({ min, max, value, onChange }) => {
         min={min}
         max={max}
         marks={labels}
+        disabled
       />
     
   );

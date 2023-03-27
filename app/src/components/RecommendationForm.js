@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Container, Alert, Col, Row } from 'react-bootstrap';
+import { Form, Button, Container, Alert, Col, Row, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import AsyncSelect from 'react-select/async';
 import SearchBar from './SearchBar';
 import MaterialSlider from './utils/MaterialSlider';
@@ -54,7 +54,7 @@ const RecommendationForm = (props) => {
     }
 
     const resetForm = (event) => {
-        setBpm([100, 200]);
+        setBpm([50, 150]);
         setGenres('');
         setSelectedArtist('');
         setSelectedTrack('');
@@ -104,19 +104,29 @@ const RecommendationForm = (props) => {
     };
 
     return(
-        <Container className='container-md'>
+        <div className="mx-auto lg:w-1/2">
             <Form onSubmit={submitHandler}>
                 <Row className="mb-3">
                     <Col>
                         <Form.Group as={Row} controlId="form.bpm">
-                            <Form.Label className="text-end" column sm={3}>Set your target <b>bpm</b> : </Form.Label>
-                            <Col sm={9}>
+                            <Form.Label className="text-end" column sm={3}>Set your target <b>tempo</b> : </Form.Label>
+                            <Col sm={7}>
                                 <MaterialSlider
                                     min={0}
                                     max={200}
                                     value={bpm}
                                     onChange={bpmChangeHandler}
                                 />
+                            </Col>
+                            <Col sm={2}>
+                                <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+                                <ToggleButton id="tbg-btn-1" value={1}>
+                                    Enabled
+                                </ToggleButton>
+                                <ToggleButton id="tbg-btn-2" value={2} variant="secondary">
+                                    Disabled
+                                </ToggleButton>
+                                </ToggleButtonGroup>
                             </Col>
                         </Form.Group>
                     </Col>
@@ -173,7 +183,7 @@ const RecommendationForm = (props) => {
                 <Button className='m-1' variant='secondary' onClick={resetForm}>Reset</Button>
                 <Button type='submit'>Find Recommendations</Button>
             </Form>
-        </Container>
+        </div>
     );
 }
 export default RecommendationForm;
