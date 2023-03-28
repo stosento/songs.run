@@ -8,8 +8,9 @@
   - [x] Energy
   - [x] Dancibility
 - [x] Add alerts to updating playlists
+- [x] Improve process for entering fields
+- [ ] Batch calls for audio analysis
 - [ ] Apply better styling
-- [ ] Improve process for entering fields
 - [ ] Add a 'source' song to compare attributes
 - [ ] Expand row functionality with full song attributes
 - [ ] Error handling

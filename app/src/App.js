@@ -54,7 +54,7 @@ function App() {
   }, [])
   
   return (
-    <div className="App">
+    <div className="App min-h-screen bg-gradient-to-r from-[rgba(173,252,234,1)] to-[rgba(192,229,246,1)]">
       {!loggedIn && <Login/>}
       {loggedIn && (
         <>

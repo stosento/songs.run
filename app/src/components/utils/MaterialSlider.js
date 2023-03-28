@@ -29,18 +29,18 @@ const valuetext = (value) => {
   return `${value}`;
 }
 
-const MaterialSlider = ({ min, max, value, onChange }) => {
-
+const MaterialSlider = ({ min, max, value, onChange, disabled }) => {
   return (
       <Slider
         value={value}
         onChange={onChange}
-        valueLabelDisplay="on"
+        valueLabelDisplay= {disabled ? "off" : "on"}
         aria-labelledby="range-slider"
         getAriaValueText={valuetext}
         min={min}
         max={max}
         marks={labels}
+        disabled={disabled}
       />
     
   );

@@ -12,6 +12,7 @@ const RecommendationForm = (props) => {
     const [inputArtist, setInputArtist] = useState('');
     const [selectedArtist, setSelectedArtist] = useState(null);
 
+    const [bpmDisabled, setBpmDisabled] = useState(false);
     const [searchDisabled, setSearchDisabled] = useState(true);
 
     useEffect(() => {
@@ -44,6 +45,10 @@ const RecommendationForm = (props) => {
         setSearchDisabled(disabled);
     };
 
+    const updateBpmEnabled = value => {
+        setBpmDisabled(value);
+    }
+
     const loadArtists = inputArtist => {
         return props.api.search(inputArtist, ["artist"]).then(result => {
             const res = result.artists.items.map((item) => ({
@@ -71,19 +76,40 @@ const RecommendationForm = (props) => {
         setSelectedTrack('');
     }
 
-    const submitHandler = (event) => {
+    const generateTempoQuery = async (bpm, bpmDisabled, selectedTrack) => {
+        let query = {};
+        if (bpmDisabled) {
+            let bpm = await props.api.getAudioFeaturesForTrack(selectedTrack.value).then((analysisResult) => {
+                return Math.round(analysisResult.tempo)
+            });
+            query = {
+                "min_tempo": bpm - 10,
+                "max_tempo": bpm + 10
+            }            
+        } else {
+            query = {
+                "min_tempo": bpm[0],
+                "max_tempo": bpm[1]
+            }
+        }
+        console.log("query", query);
+        return query;
+    }
+
+    const submitHandler = async (event) => {
         event.preventDefault();
 
         const seedGenres = genres.map(item => item.value).join(',');
-        const recommendationQuery = {
+
+        const musicQuery = {
             "seed_genres": seedGenres ? seedGenres : '',
             "seed_artists": selectedArtist ? selectedArtist.value : '',
             "seed_tracks": selectedTrack ? selectedTrack.value : '',
-            "min_tempo": bpm[0],
-            "max_tempo": bpm[1],
             "limit": 50
         }
-
+        const tempoQuery = await generateTempoQuery(bpm, bpmDisabled, selectedTrack);
+        const searchQuery = {...musicQuery, ...tempoQuery};
+        
         function parseTrack(track, analysis) {
             const result = {
                 "id": track.id,
@@ -100,7 +126,7 @@ const RecommendationForm = (props) => {
             return result;
         }
 
-        props.api.getRecommendations(recommendationQuery).then((trackResult) => {
+        props.api.getRecommendations(searchQuery).then((trackResult) => {
             
             const parsed = trackResult.tracks.map((track) => {
                 return props.api.getAudioFeaturesForTrack(track.id).then((analysisResult) => {
@@ -127,14 +153,25 @@ const RecommendationForm = (props) => {
                                     max={200}
                                     value={bpm}
                                     onChange={bpmChangeHandler}
+                                    disabled={bpmDisabled}
                                 />
                             </Col>
                             <Col sm={2}>
-                                <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                                    <ToggleButton id="tbg-btn-1" size="sm" value={1} variant="outline-success">
+                                <ToggleButtonGroup type="radio" name="options" defaultValue={false} onChange={updateBpmEnabled}>
+                                    <ToggleButton 
+                                        id="tbg-btn-1" 
+                                        size="sm" 
+                                        value={false} 
+                                        variant="outline-success" 
+                                    >
                                         Enabled
                                     </ToggleButton>
-                                    <ToggleButton id="tbg-btn-2" size="sm" value={2} variant="outline-danger">
+                                    <ToggleButton 
+                                        id="tbg-btn-2" 
+                                        size="sm" 
+                                        value={true} 
+                                        variant="outline-danger"
+                                    >
                                         Disabled
                                     </ToggleButton>
                                 </ToggleButtonGroup>
