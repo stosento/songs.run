@@ -30,6 +30,7 @@ const RecommendationForm = (props) => {
         setInputArtist(value);
     };
     const handleArtistChange = value => {
+        console.log("testing handle artist change", value)
         setSelectedArtist(value);
     };
 
@@ -40,8 +41,10 @@ const RecommendationForm = (props) => {
         setSelectedTrack(value);
     };
 
-    const updateSearchEnabled = (bpm, selectedArtist, selectedTrack, genres) => {
-        let disabled = bpm ? (!selectedArtist && !selectedTrack && !genres) : !selectedTrack;
+    const updateSearchEnabled = (bpmDisabled, selectedArtist, selectedTrack, genres) => {
+        console.log("in updateSearchEnable")
+        console.log("values", bpmDisabled, selectedArtist, selectedTrack, genres)
+        let disabled = bpmDisabled ? !selectedTrack : (!selectedArtist && !selectedTrack && (!genres || !genres.length));
         setSearchDisabled(disabled);
     };
 
@@ -98,8 +101,7 @@ const RecommendationForm = (props) => {
 
     const submitHandler = async (event) => {
         event.preventDefault();
-
-        const seedGenres = genres.map(item => item.value).join(',');
+        const seedGenres = genres ? genres.map(item => item.value).join(','): '';
 
         const musicQuery = {
             "seed_genres": seedGenres ? seedGenres : '',
@@ -141,7 +143,7 @@ const RecommendationForm = (props) => {
     };
 
     return(
-        <div className="mx-auto lg:w-1/2">
+        <div className="mx-auto lg:w-3/4">
             <Form onSubmit={submitHandler}>
                 <Row className="mb-3">
                     <Col>

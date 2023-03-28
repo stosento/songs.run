@@ -11,6 +11,7 @@
 - [x] Improve process for entering fields
 - [x] Batch calls for audio analysis
 - [x] Clean up form to allow for removal of artist / song
+- [x] Handle bug with clearing fields
 - [ ] Deploy pipeline
 - [ ] Apply better styling
   - [ ] Table styling alternatives
