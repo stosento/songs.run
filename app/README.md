@@ -6,7 +6,7 @@
   - [x] Select playlist from list of playlists
 - [x] Add additional attributes to main table
   - [x] Energy
-  - [x] Dancibility
+  - [x] Danceability
 - [x] Add alerts to updating playlists
 - [x] Improve process for entering fields
 - [x] Batch calls for audio analysis

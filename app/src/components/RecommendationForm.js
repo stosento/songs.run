@@ -16,7 +16,7 @@ const RecommendationForm = (props) => {
     const [searchDisabled, setSearchDisabled] = useState(true);
 
     useEffect(() => {
-        updateSearchEnabled(bpm, selectedArtist, selectedTrack, genres);
+        updateSearchEnabled(bpmDisabled, selectedArtist, selectedTrack, genres);
     })
 
     const bpmChangeHandler = (event, data) => {

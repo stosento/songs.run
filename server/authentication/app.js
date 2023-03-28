@@ -12,15 +12,13 @@ var request = require('request'); // "Request" library
 var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
-require('dotenv').config({path: '../../../.env'});
+require('dotenv').config({path: '../../.env'});
 
 var client_id = process.env.SPOTIFY_CLIENT_ID; // Your client id
 var client_secret = process.env.SPOTIFY_CLIENT_SECRET; // Your secret
 var redirect_uri = process.env.SPOTIFY_REDIRECT_URI; // Your redirect uri
 var frontend_uri = process.env.SPOTIFY_FRONTEND_URI + '#';
 var port = process.env.PORT || 8888;
-
-console.log(client_id);
 
 /**
  * Generates a random string containing numbers and letters
