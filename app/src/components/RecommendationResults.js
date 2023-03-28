@@ -84,6 +84,14 @@ const RecommendationResults = (props) => {
         window.open(row.url, "_blank");
     };
 
+    const customTableStyles = {
+        table: {
+            style: {
+                backgroundColor: "rgba(255, 0, 0, 0.9)"
+            }
+        }
+    }
+
     return (
         <Container>
             <PlaylistActions 
@@ -92,6 +100,7 @@ const RecommendationResults = (props) => {
                 setAlert={props.setAlert}
             />
             <DataTable
+                customStyles={customTableStyles}
                 columns={columns}
                 data={rows}
                 pagination
