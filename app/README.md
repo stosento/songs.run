@@ -9,7 +9,7 @@
   - [x] Dancibility
 - [x] Add alerts to updating playlists
 - [x] Improve process for entering fields
-- [ ] Batch calls for audio analysis
+- [x] Batch calls for audio analysis
 - [ ] Apply better styling
 - [ ] Add a 'source' song to compare attributes
 - [ ] Expand row functionality with full song attributes

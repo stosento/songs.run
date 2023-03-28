@@ -128,14 +128,14 @@ const RecommendationForm = (props) => {
 
         props.api.getRecommendations(searchQuery).then((trackResult) => {
             
-            const parsed = trackResult.tracks.map((track) => {
-                return props.api.getAudioFeaturesForTrack(track.id).then((analysisResult) => {
-                    return parseTrack(track, analysisResult);
-                });
-            });
-            
-            Promise.all(parsed).then((results) => {
-                props.setRecommendations(results);
+            let arr = [];
+
+            const trackIds = trackResult.tracks.map(track => track.id);
+            props.api.getAudioFeaturesForTracks(trackIds).then((analysisResult) => {
+                analysisResult.audio_features.forEach((analysis, index) => {
+                    arr.push(parseTrack(trackResult.tracks[index], analysis));
+                })
+                props.setRecommendations(arr);
             });
         })
     };
