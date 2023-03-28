@@ -185,6 +185,7 @@ const RecommendationForm = (props) => {
                             <Form.Label className="text-end" column sm={3}>Search for an <b>artist</b> you like :</Form.Label>
                             <Col sm={9}>
                                 <AsyncSelect
+                                    isClearable
                                     cacheOptions
                                     value={selectedArtist}
                                     placeholder="Search..."
@@ -202,6 +203,7 @@ const RecommendationForm = (props) => {
                             <Form.Label className="text-end" column sm={3}>Search for a <b>song</b> you like :</Form.Label>
                             <Col sm={9}>
                                 <AsyncSelect
+                                    isClearable
                                     cacheOptions
                                     placeholder="Search..."
                                     value={selectedTrack}

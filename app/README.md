@@ -10,7 +10,9 @@
 - [x] Add alerts to updating playlists
 - [x] Improve process for entering fields
 - [x] Batch calls for audio analysis
+- [x] Clean up form to allow for removal of artist / song
 - [ ] Apply better styling
+  - [ ] Table styling alternatives
 - [ ] Add a 'source' song to compare attributes
 - [ ] Expand row functionality with full song attributes
 - [ ] Error handling
