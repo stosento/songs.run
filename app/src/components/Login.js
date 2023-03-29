@@ -11,7 +11,7 @@ const Login = () => {
 
     const url = process.env.NODE_ENV !== 'production'
         ? 'http://localhost:8888/login'
-        : 'https://mytempo.run/login';
+        : 'https://mytempo-run.herokuapp.com/login';
 
     return (
         <div>
