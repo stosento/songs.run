@@ -8,11 +8,12 @@
  */
 
 var express = require('express'); // Express web server framework
+var path = require('path');
 var request = require('request'); // "Request" library
 var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
-require('dotenv').config({path: '../../.env'});
+require('dotenv').config({path: '../.env'});
 
 var client_id = process.env.SPOTIFY_CLIENT_ID; // Your client id
 var client_secret = process.env.SPOTIFY_CLIENT_SECRET; // Your secret
@@ -38,6 +39,8 @@ var generateRandomString = function(length) {
 var stateKey = 'spotify_auth_state';
 
 var app = express();
+
+app.use(express.static(path.resolve(__dirname, './app/build')));
 
 app.use(express.static(__dirname + '/public'))
    .use(cors())
@@ -144,6 +147,11 @@ app.get('/refresh_token', function(req, res) {
       });
     }
   });
+});
+
+// All remaining requests return the React app, so it can handle routing.
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './app/build', 'index.html'));
 });
 
 console.log('Listening on port:', port);

@@ -16,11 +16,11 @@ const LoginModal = (props) => {
                 <br/><br/>
                 Whether you know your running cadence or just have a song you know you like to run to, this application is meant to assist in finding similar or new music that matches your running style.
                 <br/><br/>
-                <ol>
+                <ul>
                     <li>Login using your Spotify credentials</li>
                     <li>Fill out a quick form to best match your running to music</li>
                     <li>Build a playlist from a curated list of songs that best fits you</li>
-                </ol>
+                </ul>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>

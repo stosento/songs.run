@@ -1,6 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Slider from '@material-ui/core/Slider';
+import Slider from '@mui/material/Slider';
 
 const labels = [
   {
@@ -42,7 +41,6 @@ const MaterialSlider = ({ min, max, value, onChange, disabled }) => {
         marks={labels}
         disabled={disabled}
       />
-    
   );
 }
 
