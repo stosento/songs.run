@@ -9,7 +9,7 @@
   "scripts": {
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "server": "nodemon index.js",
-    "start-server": "node server",
+    "start-server": "node index.js",
     "client": "cd app && npm start",
     "postinstall": "cd app && npm install",
     "build": "NODE_ENV=production cd app/ && npm install && npm run build"
