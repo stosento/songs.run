@@ -18,7 +18,7 @@ const Login = () => {
             <h1>
                 my<b>tempo</b>.run
             </h1>
-            <Button className="mb-2" variant="outline-success" href={"http://localhost:8888/login"}>
+            <Button className="mb-2" variant="outline-success" href={url}>
                 <FontAwesomeIcon icon={faSpotify} /> Connect to Spotify
             </Button>
             <br></br>
