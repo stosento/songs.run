@@ -9,10 +9,10 @@
   "scripts": {
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "server": "nodemon index.js",
+    "start-server": "node server",
     "client": "cd app && npm start",
     "postinstall": "cd app && npm install",
-    "build": "NODE_ENV=production cd app/ && npm install && npm run build",
-    "start-server": "cd .. && node server"
+    "build": "NODE_ENV=production cd app/ && npm install && npm run build"
   },
   "author": "Spotify",
   "name": "web-api-auth-examples",
