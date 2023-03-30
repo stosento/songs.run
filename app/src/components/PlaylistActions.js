@@ -45,7 +45,7 @@ const PlaylistActions = (props) => {
         <>  
             <Button 
                 size="sm" 
-                variant="outline-primary" 
+                variant={disabled ? "outline-primary" : "primary"}
                 className='float-start' 
                 disabled={disabled}
                 onClick={handleCreateClick}
@@ -55,7 +55,7 @@ const PlaylistActions = (props) => {
 
             <Button 
                 size="sm" 
-                variant="outline-primary" 
+                variant={disabled ? "outline-primary" : "primary"}
                 className='float-start' 
                 disabled={disabled}
                 onClick={handleAddClick}
