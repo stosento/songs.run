@@ -56,6 +56,7 @@ function App() {
   return (
     // <div className="App min-h-screen bg-gradient-to-b from-blue-900 to-indigo-900">
     <div className="App min-h-screen bg-gradient-to-b from-[#0F2027] via-[#203A43] to-[#2C5364]">
+    {/* <div className="App min-h-screen bg-gradient-to-b from-[#141e30] to-[#243b55]"> */}
       {!loggedIn && <Login/>}
       {loggedIn && (
         <>

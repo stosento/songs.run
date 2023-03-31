@@ -186,7 +186,7 @@ const RecommendationForm = (props) => {
                         <Form.Group as={Row} controlId="form.artist">
                             <Form.Label className="text-end" column sm={3}>Search for an <b>artist</b> you like :</Form.Label>
                             <Col sm={9}>
-                                <AsyncSelect
+                                <AsyncSelect className=""
                                     isClearable
                                     cacheOptions
                                     value={selectedArtist}
@@ -194,6 +194,12 @@ const RecommendationForm = (props) => {
                                     loadOptions={loadArtists}
                                     onInputChange={handleArtistInputChange}
                                     onChange={handleArtistChange}
+                                    styles={{
+                                        option: (base) => ({
+                                            ...base,
+                                            color: 'black'
+                                        }),
+                                        }}
                                 />
                             </Col>
                         </Form.Group>
@@ -212,6 +218,12 @@ const RecommendationForm = (props) => {
                                     loadOptions={loadTracks}
                                     onInputChange={handleTrackInputChange}
                                     onChange={handleTrackChange}
+                                    styles={{
+                                        option: (base) => ({
+                                            ...base,
+                                            color: 'black'
+                                        }),
+                                        }}
                                 /> 
                             </Col>
                         </Form.Group>

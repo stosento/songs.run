@@ -1,5 +1,6 @@
 import React from 'react';
 import Slider from '@mui/material/Slider';
+import { styled, createTheme, ThemeProvider } from '@mui/system';
 
 const labels = [
   {
@@ -24,13 +25,23 @@ const labels = [
   }
 ];
 
+const StyledSlider = styled(Slider) (({ theme }) => ({
+  '& .MuiSlider-markLabel': {
+    color: 'white'
+  },
+  '.MuiSlider-valueLabel': {
+    fontSize: '12px',
+    backgroundColor: '#1875D1'
+  }
+}))
+
 const valuetext = (value) => {
   return `${value}`;
 }
 
 const MaterialSlider = ({ min, max, value, onChange, disabled }) => {
   return (
-      <Slider
+      <StyledSlider
         value={value}
         onChange={onChange}
         valueLabelDisplay= {disabled ? "off" : "on"}

@@ -19,6 +19,12 @@ export default function SearchBar(props) {
             isOptionDisabled={() => props.selected.length >= 3}
             isMulti
             isClearable 
+            styles={{
+                    option: (base) => ({
+                        ...base,
+                        color: 'black'
+                    }),
+                    }}
         />
     )
 }

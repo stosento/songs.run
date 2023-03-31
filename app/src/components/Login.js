@@ -16,8 +16,6 @@ const Login = () => {
     return (
         <div className="flex h-screen justify-center items-center">
             <div className="flex flex-col">
-
-
                 <h1>
                     my<b>tempo</b>.run
                 </h1>
