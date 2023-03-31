@@ -61,7 +61,11 @@ function App() {
       {loggedIn && (
         <>
           {globalAlert}
-          <h3 className="mb-5">my<b>tempo</b>.run</h3>
+          <h2 className="pt-3 pb-5">
+                    <span className="font-extralight">my</span>
+                    <span className="font-semibold">tempo</span>
+                    <span className="font-extralight">.run</span>
+          </h2>
           <RecommendationForm className="mb-4"
             availableGenres={availableGenres}
             api={spotifyApi}

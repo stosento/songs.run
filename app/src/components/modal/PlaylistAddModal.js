@@ -15,7 +15,7 @@ const PlaylistAddModal = (props) => {
            props.api.getUserPlaylists(userId, {"limit" : 50}).then(result => {
             const ownedPlaylists = result.items.filter(playlist => playlist.owner.id === userId);
             const cards = ownedPlaylists.map(item => {
-              return (<PlaylistCard 
+              return (<PlaylistCard
                         api={props.api} 
                         playlist={item} 
                         songs={props.songs} 

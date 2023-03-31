@@ -24,7 +24,16 @@ export default function SearchBar(props) {
                         ...base,
                         color: 'black'
                     }),
-                    }}
+                    multiValue: (base) => ({
+                        ...base,
+                        color: '#fff',
+                        background: '#1A3039'
+                    }),
+                    multiValueLabel: (base) => ({
+                        ...base,
+                        color: '#fff'
+                    })
+            }}
         />
     )
 }

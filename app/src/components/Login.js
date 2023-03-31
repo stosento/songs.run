@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import LoginModal from "./modal/LoginModal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faSpotify } from '@fortawesome/free-brands-svg-icons'
 const Login = () => {
 
@@ -17,7 +16,9 @@ const Login = () => {
         <div className="flex h-screen justify-center items-center">
             <div className="flex flex-col">
                 <h1>
-                    my<b>tempo</b>.run
+                    <span className="font-extralight">my</span>
+                    <span className="font-semibold">tempo</span>
+                    <span className="font-extralight">.run</span>
                 </h1>
                 <Button className="mb-2" variant="outline-success" href={url}>
                     <FontAwesomeIcon icon={faSpotify} /> Connect to Spotify
