@@ -1,5 +1,6 @@
 # Goals
 
+## Todo
 - [x] Make BPM a slider  
 - [x] Add the ability to add to existing playlists
   - [x] List playlists for the current user + 
@@ -12,10 +13,13 @@
 - [x] Batch calls for audio analysis
 - [x] Clean up form to allow for removal of artist / song
 - [x] Handle bug with clearing fields
-- [ ] Deploy pipeline
-- [ ] Apply better styling
-  - [ ] Table styling alternatives
-- [ ] Add a 'source' song to compare attributes
-- [ ] Expand row functionality with full song attributes
+- [x] Deploy pipeline
+- [x] Apply better styling
+- [ ] Fix callback urls
+- [ ] Logos on footer
 - [ ] Error handling
+
+## Features
+- [ ] Add a 'source' song to compare attributes
 - [ ] 'Randomize' button
+- [ ] Expand row functionality with full song attributes

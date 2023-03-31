@@ -10,7 +10,7 @@ const Login = () => {
 
     const url = process.env.NODE_ENV !== 'production'
         ? 'http://localhost:8888/login'
-        : 'https://mytempo-run.herokuapp.com/login';
+        : 'https://mytempo.run/login';
 
     return (
         <div className="flex h-screen justify-center items-center">
