@@ -2,7 +2,10 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import LoginModal from "./modal/LoginModal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpotify } from '@fortawesome/free-brands-svg-icons'
+import { faSpotify, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons'
+import { faMugSaucer } from '@fortawesome/free-solid-svg-icons'
+import Footer from "./Footer";
+
 const Login = () => {
 
     const [show, setShow] = useState(false);
@@ -14,7 +17,7 @@ const Login = () => {
 
     return (
         <div className="flex h-screen justify-center items-center">
-            <div className="flex flex-col">
+            <div className="flex flex-col h-3/4">
                 <h1>
                     <span className="font-extralight">my</span>
                     <span className="font-semibold">tempo</span>
@@ -23,9 +26,10 @@ const Login = () => {
                 <Button className="mb-2" variant="outline-success" href={url}>
                     <FontAwesomeIcon icon={faSpotify} /> Connect to Spotify
                 </Button>
-                <Button variant="outline-secondary" onClick={handleShow}>
+                <Button className="mb-2" variant="outline-secondary" onClick={handleShow}>
                     What is this?
                 </Button>
+                <Footer/>
                 <LoginModal show={show} setShow={setShow}/>
             </div>
         </div>

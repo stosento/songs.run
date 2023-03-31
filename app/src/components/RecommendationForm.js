@@ -148,7 +148,7 @@ const RecommendationForm = (props) => {
                 <Row className="mb-3">
                     <Col>
                         <Form.Group as={Row} controlId="form.bpm">
-                            <Form.Label className="text-end" column sm={3}>Set your target <b>tempo</b> : </Form.Label>
+                            <Form.Label className="sm:pb-96 md:text-end" column sm={3}>Set your target <b>tempo</b> : </Form.Label>
                             <Col sm={7}>
                                 <MaterialSlider
                                     min={0}
@@ -184,7 +184,7 @@ const RecommendationForm = (props) => {
                 <Row className="mb-3">
                     <Col>
                         <Form.Group as={Row} controlId="form.artist">
-                            <Form.Label className="text-end" column sm={3}>Search for an <b>artist</b> you like :</Form.Label>
+                            <Form.Label className="md:text-end" column sm={3}>Search for an <b>artist</b> you like :</Form.Label>
                             <Col sm={9}>
                                 <AsyncSelect className=""
                                     isClearable
@@ -208,7 +208,7 @@ const RecommendationForm = (props) => {
                 <Row className="mb-3">
                     <Col>
                         <Form.Group as={Row} controlId="form.track">
-                            <Form.Label className="text-end" column sm={3}>Search for a <b>song</b> you like :</Form.Label>
+                            <Form.Label className="md:text-end" column sm={3}>Search for a <b>song</b> you like :</Form.Label>
                             <Col sm={9}>
                                 <AsyncSelect
                                     isClearable
@@ -232,7 +232,7 @@ const RecommendationForm = (props) => {
                 <Row className="mb-3">
                     <Col>
                         <Form.Group as={Row} controlId="form.genres">
-                            <Form.Label className="text-end" column sm={3}>Add a few <b>genres</b> :</Form.Label>
+                            <Form.Label className="md:text-end" column sm={3}>Add a few <b>genres</b> :</Form.Label>
                             <Col sm={9}>
                                 <SearchBar 
                                     options={props.availableGenres}
