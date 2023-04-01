@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
-import SpotifyWebApi from "spotify-web-api-js";
-import { Button } from 'react-bootstrap'
-
-import getTokenFromUrl from "./Utility";
-import Login from './components/Login';
-import RecommendationForm from './components/RecommendationForm';
-import RecommendationResults from './components/RecommendationResults';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
+
+import SpotifyWebApi from "spotify-web-api-js";
+
+import getTokenFromUrl from "./Utility";
+import Login from './components/Login';
 import GlobalAlert from "./components/alert/GlobalAlert";
+import RecommendationForm from './components/RecommendationForm';
+import RecommendationResults from './components/RecommendationResults';
+import SpotifyPlayer from 'react-spotify-web-playback';
+import Footer from './components/Footer';
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -23,10 +25,18 @@ function App() {
   const [availableGenres, setAvailableGenres] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
 
+  const [playbackUris, setPlaybackUris] = useState([]);
+
   const populateAlert = (alert) => {
     setShowAlert(true);
     setGlobalAlert(alert);
   };
+
+  const updatePlayback = (uri) => {
+    console.log("updatePlayback", uri)
+    setPlaybackUris([uri])
+    console.log("after error")
+  }
 
   useEffect(() => {
 
@@ -54,9 +64,7 @@ function App() {
   }, [])
   
   return (
-    // <div className="App min-h-screen bg-gradient-to-b from-blue-900 to-indigo-900">
     <div className="App min-h-screen bg-gradient-to-b from-[#0F2027] via-[#203A43] to-[#2C5364]">
-    {/* <div className="App min-h-screen bg-gradient-to-b from-[#141e30] to-[#243b55]"> */}
       {!loggedIn && <Login/>}
       {loggedIn && (
         <>
@@ -77,9 +85,20 @@ function App() {
                 recommendations={recommendations} 
                 api={spotifyApi}
                 setAlert={populateAlert}
+                setUris={updatePlayback}
               />
             </>
           ) : <></>}
+          {/* <Footer className="mt-50"/> */}
+          <div className="fixed inset-x-0 bottom-0">
+            <SpotifyPlayer
+              token={spotifyToken}
+              uris={playbackUris}
+              styles={{
+                bgColor: 'white'
+              }}
+            />
+          </div>
         </>
       )}
     </div>

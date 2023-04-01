@@ -3,7 +3,17 @@ import { Container, Button } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import PlaylistActions from './PlaylistActions';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
+import PlayButton from './utils/PlayButton';
+
 const columns = [
+    {
+        name: 'Playback',
+        selector: row => row.playback,
+        center: true,
+        grow: 0
+    },
     {
         name: 'Thumbnail',
         selector: row => row.image,
@@ -46,9 +56,10 @@ const columns = [
     }
 ];
 
-function makeRow(item) {
+function makeRow(item, props) {
     const row = {
         "id": item.id,
+        "playback": <PlayButton setUris={props.setUris} uri={item.uri}/>,
         "image": <img src={item.image} style={{height: 64}}/>,
         "artist": item.artist,
         "song": item.title,
@@ -62,6 +73,11 @@ function makeRow(item) {
     return row;
 }
 
+//Define an onclick listener that sets the playback 
+const test = (uri) => {
+    console.log("test", uri);
+}
+
 const RecommendationResults = (props) => {
 
     const [songs, setSongs] = useState([]);
@@ -69,7 +85,7 @@ const RecommendationResults = (props) => {
 
     let rows = [];
     props.recommendations.forEach(rec => {
-        rows.push(makeRow(rec));
+        rows.push(makeRow(rec, props));
     });
 
     const handleChange = ({ selectedRows }) => {

@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import LoginModal from "./modal/LoginModal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpotify, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons'
-import { faMugSaucer } from '@fortawesome/free-solid-svg-icons'
+import { faSpotify } from '@fortawesome/free-brands-svg-icons'
 import Footer from "./Footer";
 
 const Login = () => {

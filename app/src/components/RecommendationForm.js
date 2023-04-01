@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Button, Container, Alert, Col, Row, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import { Form, Button, Col, Row, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import AsyncSelect from 'react-select/async';
 import SearchBar from './SearchBar';
 import MaterialSlider from './utils/MaterialSlider';
@@ -42,8 +42,6 @@ const RecommendationForm = (props) => {
     };
 
     const updateSearchEnabled = (bpmDisabled, selectedArtist, selectedTrack, genres) => {
-        console.log("in updateSearchEnable")
-        console.log("values", bpmDisabled, selectedArtist, selectedTrack, genres)
         let disabled = bpmDisabled ? !selectedTrack : (!selectedArtist && !selectedTrack && (!genres || !genres.length));
         setSearchDisabled(disabled);
     };
@@ -52,8 +50,8 @@ const RecommendationForm = (props) => {
         setBpmDisabled(value);
     }
 
-    const loadArtists = inputArtist => {
-        return props.api.search(inputArtist, ["artist"]).then(result => {
+    const loadArtists = input => {
+        return props.api.search(input, ["artist"]).then(result => {
             const res = result.artists.items.map((item) => ({
                 value : item.id,
                 label : item.name  
@@ -62,8 +60,8 @@ const RecommendationForm = (props) => {
         });
     }
 
-    const loadTracks = inputTrack => {
-        return props.api.search(inputTrack, ["track"]).then(result => {
+    const loadTracks = input => {
+        return props.api.search(input, ["track"]).then(result => {
             const res = result.tracks.items.map((item) => ({
                 value : item.id,
                 label : item.name + " - " + item.artists[0].name
@@ -95,7 +93,6 @@ const RecommendationForm = (props) => {
                 "max_tempo": bpm[1]
             }
         }
-        console.log("query", query);
         return query;
     }
 

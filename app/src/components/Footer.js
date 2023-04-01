@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpotify, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons'
+import { faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons'
 import { faMugSaucer } from '@fortawesome/free-solid-svg-icons'
 
 const Footer = () => {
@@ -11,14 +11,14 @@ const Footer = () => {
     return (
         <div className="flex flex-col h-1/4">
             <div className="row-auto">
-                <a className="text-white opacity-50 mx-2" href={twitterUrl} target="_blank" rel="noreferrer">
-                    <FontAwesomeIcon icon={faTwitter} />
+                <a className="text-stone-400 mx-2" href={twitterUrl} target="_blank" rel="noreferrer">
+                    <FontAwesomeIcon className="hover:text-white text-stone-400" icon={faTwitter} />
                 </a>
-                <a className="text-white opacity-50 mx-2" href={githubUrl} target="_blank" rel="noreferrer">
-                    <FontAwesomeIcon icon={faGithub} />
+                <a className="text-stone-400 mx-2" href={githubUrl} target="_blank" rel="noreferrer">
+                    <FontAwesomeIcon className="hover:text-white text-stone-400" icon={faGithub} />
                 </a>
-                <a className="text-white opacity-50 mx-2" href={buyCoffeeUrl} target="_blank" rel="noreferrer">
-                    <FontAwesomeIcon icon={faMugSaucer} />
+                <a className="text-stone-400 mx-2" href={buyCoffeeUrl} target="_blank" rel="noreferrer">
+                    <FontAwesomeIcon className="hover:text-white text-stone-400" icon={faMugSaucer} />
                 </a>
             </div>
         </div>
