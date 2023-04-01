@@ -2,7 +2,7 @@
 
 ## Todo
 - [x] Update title
-- [ ] Replace MP3 with playback
+- [x] Replace MP3 with playback
 - [ ] Add Strave integration
 - [ ] Logos on footer
 - [ ] Error handling on forms
