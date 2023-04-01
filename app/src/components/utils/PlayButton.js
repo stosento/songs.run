@@ -10,7 +10,7 @@ const PlayButton = (props) => {
 
     return (
         <div onClick={onPlay}>
-            <FontAwesomeIcon icon={faCirclePlay} size="xl" />
+            <FontAwesomeIcon icon={faCirclePlay} size="2xl" />
         </div>
     );
 }

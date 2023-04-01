@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Container, Button } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 import PlaylistActions from './PlaylistActions';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
 import PlayButton from './utils/PlayButton';
 
 const columns = [
@@ -48,13 +45,12 @@ const columns = [
         selector: row => row.energy,
         sortable: true,
         grow: 0
-    },
-    {
-        name: 'Preview',
-        selector: row => row.preview,
-        grow: 2
     }
 ];
+
+const format = value => {
+    return (value*100).toFixed(1) + "%";
+}
 
 function makeRow(item, props) {
     const row = {
@@ -64,18 +60,12 @@ function makeRow(item, props) {
         "artist": item.artist,
         "song": item.title,
         "url": item.url,
-        "bpm": Math.round(item.bpm),
-        "danceability": item.danceability,
-        "energy": item.energy,
-        "preview": <audio controls controlsList="nodownload noplaybackrate" src={item.preview}/>,
+        "bpm": item.bpm.toFixed(1),
+        "danceability": format(item.danceability),
+        "energy": format(item.energy),
         "uri": item.uri
     };
     return row;
-}
-
-//Define an onclick listener that sets the playback 
-const test = (uri) => {
-    console.log("test", uri);
 }
 
 const RecommendationResults = (props) => {

@@ -26,6 +26,7 @@ function App() {
   const [recommendations, setRecommendations] = useState([]);
 
   const [playbackUris, setPlaybackUris] = useState([]);
+  const [play, setPlay] = useState(false);
 
   const populateAlert = (alert) => {
     setShowAlert(true);
@@ -33,9 +34,8 @@ function App() {
   };
 
   const updatePlayback = (uri) => {
-    console.log("updatePlayback", uri)
     setPlaybackUris([uri])
-    console.log("after error")
+    setPlay(true);
   }
 
   useEffect(() => {
@@ -94,6 +94,9 @@ function App() {
             <SpotifyPlayer
               token={spotifyToken}
               uris={playbackUris}
+              magnifySliderOnHover
+              layout='responsive'
+              play={play}
               styles={{
                 bgColor: 'white'
               }}
