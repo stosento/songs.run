@@ -99,7 +99,7 @@ function App() {
                 layout='responsive'
                 play={play}
                 styles={{
-                  bgColor: 'white'
+                  bgColor: '#EEEEEE'
                 }}
               />
             </div>

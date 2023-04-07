@@ -18,7 +18,7 @@ require('dotenv').config({path: '.env'});
 var client_id = process.env.SPOTIFY_CLIENT_ID; // Your client id
 var client_secret = process.env.SPOTIFY_CLIENT_SECRET; // Your secret
 var redirect_uri = process.env.SPOTIFY_REDIRECT_URI; // Your redirect uri
-var frontend_uri = process.env.SPOTIFY_FRONTEND_URI + '#';
+var frontend_uri = process.env.SPOTIFY_FRONTEND_URI + '#'; // Frontend uri
 var port = process.env.PORT || 8888;
 
 /**
@@ -41,11 +41,11 @@ var stateKey = 'spotify_auth_state';
 var app = express();
 
 app.use(express.static(path.resolve(__dirname, './app/build')));
-
 app.use(express.static(__dirname + '/public'))
    .use(cors())
    .use(cookieParser());
 
+//Spotify login
 app.get('/login', function(req, res) {
 
   var state = generateRandomString(16);
@@ -63,6 +63,7 @@ app.get('/login', function(req, res) {
     }));
 });
 
+//Spotify callback
 app.get('/callback', function(req, res) {
 
   // your application requests refresh and access tokens
@@ -125,6 +126,7 @@ app.get('/callback', function(req, res) {
   }
 });
 
+//Spotify refresh token
 app.get('/refresh_token', function(req, res) {
 
   // requesting access token from refresh token

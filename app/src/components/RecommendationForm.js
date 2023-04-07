@@ -19,36 +19,21 @@ const RecommendationForm = (props) => {
         updateSearchEnabled(bpmDisabled, selectedArtist, selectedTrack, genres);
     })
 
-    const bpmChangeHandler = (event, data) => {
-        setBpm(data);
-    };
-    const genreChangeHandler = (item) => {
-        setGenres(item);
-    };
+    // Input Handlers
+    const bpmChangeHandler = (event, data) => { setBpm(data); };
+    const genreChangeHandler = value => { setGenres(value); };
 
-    const handleArtistInputChange = value => {
-        setInputArtist(value);
-    };
-    const handleArtistChange = value => {
-        console.log("testing handle artist change", value)
-        setSelectedArtist(value);
-    };
+    const handleArtistInputChange = value => { setInputArtist(value); };
+    const handleArtistChange = value => { setSelectedArtist(value); };
 
-    const handleTrackInputChange = value => {
-        setInputTrack(value);
-    };
-    const handleTrackChange = value => {
-        setSelectedTrack(value);
-    };
+    const handleTrackInputChange = value => { setInputTrack(value); };
+    const handleTrackChange = value => { setSelectedTrack(value); };
 
+    const updateBpmEnabled = value => { setBpmDisabled(value); }
     const updateSearchEnabled = (bpmDisabled, selectedArtist, selectedTrack, genres) => {
         let disabled = bpmDisabled ? !selectedTrack : (!selectedArtist && !selectedTrack && (!genres || !genres.length));
         setSearchDisabled(disabled);
     };
-
-    const updateBpmEnabled = value => {
-        setBpmDisabled(value);
-    }
 
     const loadArtists = input => {
         return props.api.search(input, ["artist"]).then(result => {
@@ -139,7 +124,7 @@ const RecommendationForm = (props) => {
         })
     };
 
-    return(
+    return (
         <div className="mx-auto lg:w-3/4">
             <Form onSubmit={submitHandler}>
                 <Row className="mb-3">

@@ -99,7 +99,7 @@ const RecommendationResults = (props) => {
     }
 
     return (
-        <Container>
+        <div className='inline-block w-5/6 self-center mb-24'>
             <PlaylistActions 
                 songs={songs}
                 api={props.api}
@@ -118,7 +118,7 @@ const RecommendationResults = (props) => {
                 onSelectedRowsChange={handleChange}
                 onRowClicked={handleRowClick}
             />
-        </Container>
+        </div>
     );
 }
 

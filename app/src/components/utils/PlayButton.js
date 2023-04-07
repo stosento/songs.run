@@ -4,7 +4,6 @@ import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
 const PlayButton = (props) => {
 
     const onPlay = () => {
-        console.log("test", props.uri)
         props.setUris(props.uri)
     }
 
