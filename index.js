@@ -13,13 +13,59 @@ var request = require('request'); // "Request" library
 var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+var crypto = require('crypto');
+var uuid = require('uuid');
 require('dotenv').config({path: '.env'});
 
-var client_id = process.env.SPOTIFY_CLIENT_ID; // Your client id
-var client_secret = process.env.SPOTIFY_CLIENT_SECRET; // Your secret
-var redirect_uri = process.env.SPOTIFY_REDIRECT_URI; // Your redirect uri
-var frontend_uri = process.env.SPOTIFY_FRONTEND_URI + '#'; // Frontend uri
-var port = process.env.PORT || 8888;
+
+// Spotify API Config
+const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID; // Your client id
+const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET; // Your secret
+const SPOTIFY_REDIRECT = process.env.SPOTIFY_REDIRECT_URI; // Your redirect uri
+const FRONTEND_URI = process.env.SPOTIFY_FRONTEND_URI + '#'; // Frontend uri
+const PORT = process.env.PORT || 8888;
+
+// Garmin API Config
+const GARMIN_CONSUMER_KEY = process.env.GARMIN_CONSUMER_KEY;
+const GARMIN_CONSUMER_SECRET = process.env.GARMIN_CONSUMER_SECRET;
+const GARMIN_BASE_URL = process.env.GARMIN_BASE_URL;
+
+const oauth_timestamp = Math.floor(Date.now() / 1000);
+const oauth_nonce = uuid.v1();
+const parameters = {
+  oauth_consumer_key: GARMIN_CONSUMER_KEY,
+  oauth_signature_method: 'HMAC-SHA1',
+  oauth_timestamp: oauth_timestamp,
+  oauth_nonce: oauth_nonce,
+  oauth_version: '1.0'
+}
+
+let ordered = {};
+Object.keys(parameters).sort().forEach(function(key) {
+  ordered[key] = parameters[key];
+});
+
+let encodedParameters = '';
+for (k in ordered) {
+    let encodedValue = escape(ordered[k]);
+    let encodedKey = encodeURIComponent(k);
+    if (encodedParameters === '') {
+      encodedParameters += `${encodedKey}=${encodedValue}`;
+    } else {
+      encodedParameters += `&${encodedKey}=${encodedValue}`;
+    } 
+}
+
+const encodedUrl = encodeURIComponent(GARMIN_BASE_URL);
+encodedParameters = encodeURIComponent(encodedParameters);
+const signature_base_string = `POST&${encodedUrl}&${encodedParameters}`
+const signing_key = `${GARMIN_CONSUMER_SECRET}&`; //as token is missing in our case.
+const oauth_signature = crypto.createHmac('sha1', signing_key).update(signature_base_string).digest().toString('base64');
+const encoded_oauth_signature = encodeURIComponent(oauth_signature);
+
+const authorization_header = `OAuth oauth_consumer_key="${GARMIN_CONSUMER_KEY}", oauth_signature_method="HMAC-SHA1", oauth_timestamp="${oauth_timestamp}", oauth_nonce="${oauth_nonce}", oauth_version="1.0", oauth_signature="${encoded_oauth_signature}"`
+console.log(authorization_header);
+
 
 /**
  * Generates a random string containing numbers and letters
@@ -37,6 +83,7 @@ var generateRandomString = function(length) {
 };
 
 var stateKey = 'spotify_auth_state';
+var garminKey = 'garmin_auth_state';
 
 var app = express();
 
@@ -44,6 +91,12 @@ app.use(express.static(path.resolve(__dirname, './app/build')));
 app.use(express.static(__dirname + '/public'))
    .use(cors())
    .use(cookieParser());
+
+//Garmin login
+app.get('/garmin/login', function(req, res) {
+  var state = generateRandomString(16);
+
+})
 
 //Spotify login
 app.get('/login', function(req, res) {
@@ -56,9 +109,9 @@ app.get('/login', function(req, res) {
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
-      client_id: client_id,
+      client_id: SPOTIFY_CLIENT_ID,
       scope: scope,
-      redirect_uri: redirect_uri,
+      redirect_uri: SPOTIFY_REDIRECT,
       state: state
     }));
 });
@@ -84,11 +137,11 @@ app.get('/callback', function(req, res) {
       url: 'https://accounts.spotify.com/api/token',
       form: {
         code: code,
-        redirect_uri: redirect_uri,
+        redirect_uri: SPOTIFY_REDIRECT,
         grant_type: 'authorization_code'
       },
       headers: {
-        'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+        'Authorization': 'Basic ' + (new Buffer(SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET).toString('base64'))
       },
       json: true
     };
@@ -111,13 +164,13 @@ app.get('/callback', function(req, res) {
         });
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect(frontend_uri +
+        res.redirect(FRONTEND_URI +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
           }));
       } else {
-        res.redirect(frontend_uri +
+        res.redirect(FRONTEND_URI +
           querystring.stringify({
             error: 'invalid_token'
           }));
@@ -133,7 +186,7 @@ app.get('/refresh_token', function(req, res) {
   var refresh_token = req.query.refresh_token;
   var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
-    headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
+    headers: { 'Authorization': 'Basic ' + (new Buffer(SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET).toString('base64')) },
     form: {
       grant_type: 'refresh_token',
       refresh_token: refresh_token
@@ -156,5 +209,5 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './app/build', 'index.html'));
 });
 
-console.log('Listening on port:', port);
-app.listen(port);
+console.log('Listening on port:', PORT);
+app.listen(PORT);
